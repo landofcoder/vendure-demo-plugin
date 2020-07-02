@@ -7,3 +7,5 @@ The repo use to store code of sample vendure plugin
 ## 2. How to install Vendure Sample Plugin
 
 ### Install via composer (recommend)
+
+try to test
