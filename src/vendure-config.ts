@@ -102,7 +102,17 @@ export const config: VendureConfig = {
                   // in the module config points to './assets/react-app/index.html'.
                   { path: path.join(__dirname, '/ui-extension/react-app/build'), rename: 'react-app' },
                 ],
-              }],
+              },
+              {
+                extensionPath: path.join(__dirname, 'ui-extension/greeter'),
+                ngModules: [{
+                  type: 'lazy',
+                  route: 'greet',
+                  ngModuleFileName: 'greeter.module.ts',
+                  ngModuleName: 'GreeterModule',
+                }],
+              }
+            ],
               devMode: true,
             }),
           }),
