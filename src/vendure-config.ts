@@ -89,6 +89,11 @@ export const config: VendureConfig = {
                     // from the module file.
                     ngModuleName: 'ReactUiExtensionModule',
                   },
+                  {
+                    type: 'shared',
+                    ngModuleFileName: 'react-shared.module.ts',
+                    ngModuleName: 'ReactSharedModule',
+                  }
                 ],
                 staticAssets: [
                   // This is where we tell the compiler to copy the compiled React app
