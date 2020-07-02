@@ -55,3 +55,13 @@ yarn migration:revert
 # or
 npm run migration:revert
 ```
+
+
+To create UI extensions, you’ll need to install the @vendure/ui-devkit package.
+```
+yarn add @vendure/ui-devkit
+
+# or
+
+npm install @vendure/ui-devkit
+```

@@ -19,6 +19,7 @@
     "@vendure/asset-server-plugin": "0.13.1",
     "@vendure/core": "0.13.1",
     "@vendure/email-plugin": "0.13.1",
+    "@vendure/ui-devkit": "^0.13.1",
     "sqlite3": "5.0.0",
     "typescript": "3.8.3"
   },

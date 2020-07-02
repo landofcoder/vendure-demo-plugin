@@ -8,6 +8,7 @@ import { defaultEmailHandlers, EmailPlugin } from '@vendure/email-plugin';
 import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
 import path from 'path';
+import { compileUiExtensions } from '@vendure/ui-devkit/compiler';
 
 export const config: VendureConfig = {
     apiOptions: {
@@ -67,6 +68,38 @@ export const config: VendureConfig = {
                 changeEmailAddressUrl: 'http://localhost:8080/verify-email-address-change'
             },
         }),
-        AdminUiPlugin.init({ port: 3002 }),
+        AdminUiPlugin.init({
+            port: 3002,
+            app: compileUiExtensions({
+              outputPath: path.join(__dirname, '../__admin-ui'),
+              extensions: [{
+                // Points to the path containing our Angular "glue code" module
+                extensionPath: path.join(__dirname, 'ui-extension/modules'),
+                ngModules: [
+                  {
+                    // We want to lazy-load our extension...
+                    type: 'lazy',
+                    // ...when the `/admin/extensions/react-ui` 
+                    // route is activated 
+                    route: 'react-ui',
+                    // The filename of the extension module 
+                    // relative to the `extensionPath` above
+                    ngModuleFileName: 'react-extension.module.ts',
+                    // The name of the extension module class exported
+                    // from the module file.
+                    ngModuleName: 'ReactUiExtensionModule',
+                  },
+                ],
+                staticAssets: [
+                  // This is where we tell the compiler to copy the compiled React app
+                  // artifacts over to the Admin UI's `/static` directory. In this case we
+                  // also rename "build" to "react-app". This is why the `extensionUrl`
+                  // in the module config points to './assets/react-app/index.html'.
+                  { path: path.join(__dirname, '/ui-extension/react-app/build'), rename: 'react-app' },
+                ],
+              }],
+              devMode: true,
+            }),
+          }),
     ],
 };
