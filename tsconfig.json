@@ -7,9 +7,16 @@
     "experimentalDecorators": true,
     "target": "es2017",
     "strict": true,
+    "strictPropertyInitialization": false,
     "sourceMap": false,
     "outDir": "./dist",
     "baseUrl": "./"
   },
-  "exclude": ["node_modules", "migration.ts"]
+  "exclude": [
+    "node_modules",
+    "migration/*.ts",
+    "src/plugins/**/ui/*",
+    "**/*.spec.ts",
+    "src/ui-extensions/*"
+  ]
 }

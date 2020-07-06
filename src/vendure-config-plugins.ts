@@ -7,10 +7,9 @@ import path from "path";
 import {defaultEmailHandlers, EmailPlugin} from "@vendure/email-plugin";
 import {AdminUiPlugin} from "@vendure/admin-ui-plugin";
 import {compileUiExtensions} from "@vendure/ui-devkit/compiler";
-import {OrdersByEmailPlugin} from "./example-plugin";
-//import {RandomCatPlugin} from "./plugins/product";
 
 import { ProductPlugin } from './plugins/product/product-plugin';
+import { ProductSellerPlugin } from './plugins/product-seller/product-seller-plugin';
 
 export const plugins: VendureConfig['plugins'] =  [
     AssetServerPlugin.init({
@@ -38,51 +37,59 @@ export const plugins: VendureConfig['plugins'] =  [
         port: 3002,
         app: compileUiExtensions({
             outputPath: path.join(__dirname, '../__admin-ui'),
-            extensions: [{
-                // Points to the path containing our Angular "glue code" module
-                extensionPath: path.join(__dirname, 'ui-extension/modules'),
-                ngModules: [
-                    {
-                        // We want to lazy-load our extension...
-                        type: 'lazy',
-                        // ...when the `/admin/extensions/react-ui`
-                        // route is activated
-                        route: 'react-ui',
-                        // The filename of the extension module
-                        // relative to the `extensionPath` above
-                        ngModuleFileName: 'react-extension.module.ts',
-                        // The name of the extension module class exported
-                        // from the module file.
-                        ngModuleName: 'ReactUiExtensionModule',
-                    },
-                    {
-                        type: 'shared',
-                        ngModuleFileName: 'react-shared.module.ts',
-                        ngModuleName: 'ReactSharedModule',
-                    }
-                ],
-                staticAssets: [
-                    // This is where we tell the compiler to copy the compiled React app
-                    // artifacts over to the Admin UI's `/static` directory. In this case we
-                    // also rename "build" to "react-app". This is why the `extensionUrl`
-                    // in the module config points to './assets/react-app/index.html'.
-                    { path: path.join(__dirname, '/ui-extension/react-app/build'), rename: 'react-app' },
-                ],
-            },
+            extensions: [
+                {
+                    // Points to the path containing our Angular "glue code" module
+                    extensionPath: path.join(__dirname, 'ui-extension/modules'),
+                    ngModules: [
+                        {
+                            // We want to lazy-load our extension...
+                            type: 'lazy',
+                            // ...when the `/admin/extensions/react-ui`
+                            // route is activated
+                            route: 'react-ui',
+                            // The filename of the extension module
+                            // relative to the `extensionPath` above
+                            ngModuleFileName: 'react-extension.module.ts',
+                            // The name of the extension module class exported
+                            // from the module file.
+                            ngModuleName: 'ReactUiExtensionModule',
+                        },
+                        {
+                            type: 'shared',
+                            ngModuleFileName: 'react-shared.module.ts',
+                            ngModuleName: 'ReactSharedModule',
+                        }
+                    ],
+                    staticAssets: [
+                        // This is where we tell the compiler to copy the compiled React app
+                        // artifacts over to the Admin UI's `/static` directory. In this case we
+                        // also rename "build" to "react-app". This is why the `extensionUrl`
+                        // in the module config points to './assets/react-app/index.html'.
+                        { path: path.join(__dirname, '/ui-extension/react-app/build'), rename: 'react-app' },
+                    ],
+                },
                 {
                     extensionPath: path.join(__dirname, 'ui-extension/greeter'),
-                    ngModules: [{
-                        type: 'lazy',
-                        route: 'greet',
-                        ngModuleFileName: 'greeter.module.ts',
-                        ngModuleName: 'GreeterModule',
-                    }],
-                }
+                    ngModules: [
+                        {
+                            type: 'lazy',
+                            route: 'greet',
+                            ngModuleFileName: 'greeter.module.ts',
+                            ngModuleName: 'GreeterModule',
+                        },
+                        {
+                            type: 'shared',
+                            ngModuleFileName: 'greeter-shared.module.ts',
+                            ngModuleName: 'GreeterSharedModule',
+                        }
+                    ],
+                },
+                ProductSellerPlugin.uiExtensions
             ],
             devMode: true,
         }),
     }),
-    OrdersByEmailPlugin,
-    //RandomCatPlugin,
-    ProductPlugin
+    ProductPlugin,
+    ProductSellerPlugin
 ]
