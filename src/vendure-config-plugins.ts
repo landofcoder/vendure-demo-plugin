@@ -8,7 +8,9 @@ import {defaultEmailHandlers, EmailPlugin} from "@vendure/email-plugin";
 import {AdminUiPlugin} from "@vendure/admin-ui-plugin";
 import {compileUiExtensions} from "@vendure/ui-devkit/compiler";
 import {OrdersByEmailPlugin} from "./example-plugin";
-import {RandomCatPlugin} from "./plugins/product";
+//import {RandomCatPlugin} from "./plugins/product";
+
+import { ProductPlugin } from './plugins/product/product-plugin';
 
 export const plugins: VendureConfig['plugins'] =  [
     AssetServerPlugin.init({
@@ -81,5 +83,6 @@ export const plugins: VendureConfig['plugins'] =  [
         }),
     }),
     OrdersByEmailPlugin,
-    RandomCatPlugin
+    //RandomCatPlugin,
+    ProductPlugin
 ]
