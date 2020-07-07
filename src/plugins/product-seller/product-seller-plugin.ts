@@ -1,7 +1,7 @@
 import { PluginCommonModule, VendurePlugin } from '@vendure/core';
 import path from 'path';
 import { AdminUiExtension } from '@vendure/ui-devkit/compiler';
-import { ProductSeller } from './product-seller.entity';
+import { ProductSeller } from './entities/product-seller.entity';
 
 @VendurePlugin({
     imports: [PluginCommonModule],

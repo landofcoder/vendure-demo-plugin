@@ -1,0 +1,33 @@
+<vdr-action-bar>
+    <vdr-ab-left>
+    </vdr-ab-left>
+    <vdr-ab-right>
+        <ng-container>
+            <button class="btn btn-primary" (click)="create()" [disabled]="!form.valid">
+                Create
+            </button>
+        </ng-container>
+    </vdr-ab-right>
+</vdr-action-bar>
+<form class="form" [formGroup]="form">
+    <section class="form-block">
+        <vdr-form-field label="Seller" for="name">
+            <input id="name" type="text" formControlName="name"/>
+        </vdr-form-field>
+        <vdr-form-field label="Category" for="category">
+            <select clrSelect name="category" formControlName="category"  class='form-control'>
+                <option *ngFor="let c of categories" [ngValue]="c">{{ c }}</option>
+<!--                <option [ngValue]="null" disabled>Choose your profile</option>-->
+<!--                <option [ngValue]="1">Option 1</option>-->
+<!--                <option [ngValue]="2">Option 2</option>-->
+<!--                <option [ngValue]="3">Option 3</option>-->
+            </select>
+        </vdr-form-field>
+        <vdr-form-field label="Description">
+                    <textarea
+                            id="description"
+                            formControlName="description"
+                    ></textarea>
+        </vdr-form-field>
+    </section>
+</form>
