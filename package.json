@@ -21,7 +21,7 @@
     "@vendure/email-plugin": "0.13.1",
     "@vendure/ui-devkit": "^0.13.1",
     "graphql-tag": "^2.10.3",
-    "sqlite3": "5.0.0",
+    "sqlite3": "5.0.3",
     "typescript": "3.8.3"
   },
   "devDependencies": {
